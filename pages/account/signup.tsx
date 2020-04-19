@@ -1,57 +1,59 @@
-import "../css/main.css";
-import React, { useState, useEffect } from "react";
-import firebase from "firebase/app";
-import "firebase/auth";
-import Link from "next/link";
-import Router from "next/router";
-import initFirebase from "../utils/auth/initFirebase";
-import Footer from "../components/footer";
+import '../../css/main.css'
+import React, { useState, useEffect } from 'react'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import Link from 'next/link'
+import Router from 'next/router'
+import initFirebase from '../../utils/auth/initFirebase'
+import Footer from '../../components/footer'
 
-initFirebase();
+initFirebase()
 
 type Inputs = {
-  email: string;
-  password: string;
-  displayName: string;
-};
+  email: string
+  password: string
+  displayName: string
+}
 
 function Signup() {
   const initialValues: Inputs = {
-    email: "",
-    password: "",
-    displayName: ""
-  };
-  var firstInput: HTMLInputElement | null = null;
+    email: '',
+    password: '',
+    displayName: '',
+  }
+  var firstInput: HTMLInputElement | null = null
 
-  const [inputs, setInputs] = useState(initialValues);
+  const [inputs, setInputs] = useState(initialValues)
 
   const handleSubmit = async (e: React.ChangeEvent<any>) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await firebase.auth().createUserWithEmailAndPassword(inputs.email, inputs.password);
-      var user = firebase.auth().currentUser;
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(inputs.email, inputs.password)
+      var user = firebase.auth().currentUser
       if (user) {
         await user.updateProfile({
-          displayName: inputs.displayName
-        });
+          displayName: inputs.displayName,
+        })
       }
-      Router.push("/");
+      Router.push('/')
     } catch (error) {
-      alert(error);
+      alert(error)
     }
-  };
+  }
 
   const handleInputChange = (e: React.ChangeEvent<any>) => {
-    e.persist();
+    e.persist()
     setInputs({
       ...inputs,
-      [e.target.name]: e.target.value
-    });
-  };
+      [e.target.name]: e.target.value,
+    })
+  }
 
   useEffect(() => {
-    firstInput?.focus();
-  }, []); // [] = run once
+    firstInput?.focus()
+  }, []) // [] = run once
 
   return (
     <>
@@ -64,7 +66,7 @@ function Signup() {
             name="email"
             onChange={handleInputChange}
             value={inputs.email}
-            ref={r => (firstInput = r)}
+            ref={(r) => (firstInput = r)}
           />
         </p>
         <p>
@@ -92,14 +94,14 @@ function Signup() {
         </p>
       </form>
       <p>
-        {"or "}
+        {'or '}
         <Link href="/login">
           <a>[ log in ]</a>
         </Link>
       </p>
       <Footer />
     </>
-  );
+  )
 }
 
-export default Signup;
+export default Signup

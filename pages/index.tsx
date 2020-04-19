@@ -1,16 +1,16 @@
-import "../css/main.css";
-import React from "react";
-import PropTypes from "prop-types";
-import { get } from "lodash";
-import Link from "next/link";
-import withAuthUser from "../utils/pageWrappers/withAuthUser";
-import withAuthUserInfo from "../utils/pageWrappers/withAuthUserInfo";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import '../css/main.css'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { get } from 'lodash'
+import Link from 'next/link'
+import withAuthUser from '../utils/pageWrappers/withAuthUser'
+import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
+import Header from '../components/header'
+import Footer from '../components/footer'
 
 const Index = (props: any) => {
-  const { AuthUserInfo } = props;
-  const authUser = get(AuthUserInfo, "AuthUser");
+  const { AuthUserInfo } = props
+  const authUser = get(AuthUserInfo, 'AuthUser')
 
   return (
     <>
@@ -19,12 +19,12 @@ const Index = (props: any) => {
         <>
           <div>not signed in.</div>
           <div>
-            <Link href={"/login"}>
+            <Link href={'/account/login'}>
               <a>[ log in ]</a>
             </Link>
           </div>
           <p>
-            <Link href={"/signup"}>
+            <Link href={'/account/signup'}>
               <a>[ create account ]</a>
             </Link>
           </p>
@@ -33,12 +33,12 @@ const Index = (props: any) => {
         <>
           <pre className="text-xs">{JSON.stringify(authUser, null, 2)}</pre>
           <p>
-            <Link href={"/account"}>
+            <Link href={'/account'}>
               <a>[ account ]</a>
             </Link>
           </p>
           <p>
-            <Link href={"/spaces"}>
+            <Link href={'/spaces'}>
               <a>[ spaces ]</a>
             </Link>
           </p>
@@ -48,22 +48,22 @@ const Index = (props: any) => {
         <Footer />
       </>
     </>
-  );
-};
+  )
+}
 
 Index.propTypes = {
   AuthUserInfo: PropTypes.shape({
     AuthUser: PropTypes.shape({
       id: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      emailVerified: PropTypes.bool.isRequired
+      emailVerified: PropTypes.bool.isRequired,
     }),
-    token: PropTypes.string
-  })
-};
+    token: PropTypes.string,
+  }),
+}
 
 Index.defaultProps = {
-  AuthUserInfo: null
-};
+  AuthUserInfo: null,
+}
 
-export default withAuthUser(withAuthUserInfo(Index));
+export default withAuthUser(withAuthUserInfo(Index))
