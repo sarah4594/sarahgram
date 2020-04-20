@@ -47,6 +47,33 @@ function Login() {
     }
   }
 
+  // const handleLoginTwitter = async (e: any) => {
+  //   e.preventDefault()
+  //   var provider = new firebase.auth.TwitterAuthProvider()
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then(function (result) {
+  //       // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+  //       // You can use these server side with your app's credentials to access the Twitter API.
+  //       var token = result.credential.accessToken
+  //       var secret = result.credential.secret
+  //       // The signed-in user info.
+  //       var user = result.user
+  //       // ...
+  //     })
+  //     .catch(function (error) {
+  //       // Handle Errors here.
+  //       var errorCode = error.code
+  //       var errorMessage = error.message
+  //       // The email of the user's account used.
+  //       var email = error.email
+  //       // The firebase.auth.AuthCredential type that was used.
+  //       var credential = error.credential
+  //       // ...
+  //     })
+  // }
+
   const onClick = (e: any) => {
     e.preventDefault
   }
@@ -229,7 +256,7 @@ function Login() {
                       <div className="mt-6">
                         <span className="block w-full rounded-md shadow-sm">
                           <a
-                            href="/account/signup"
+                            href="/account/registration"
                             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md border-purple-700 border-2 text-purple-700 bg-white hover:bg-purple-300 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out"
                           >
                             Signup
