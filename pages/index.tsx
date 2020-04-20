@@ -24,7 +24,7 @@ const Index = (props: any) => {
             </Link>
           </div>
           <p>
-            <Link href={'/account/signup'}>
+            <Link href={'/account/registration'}>
               <a>[ create account ]</a>
             </Link>
           </p>
