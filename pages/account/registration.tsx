@@ -9,16 +9,18 @@ initFirebase()
 
 type Inputs = {
   email: string
-  password: string
   displayName: string
+  password: string
+  confirmPassword: string
 }
 
 // const Registration = (props: any) => (
 function Registration(props: any) {
   const initialValues: Inputs = {
     email: '',
-    password: '',
     displayName: '',
+    password: '',
+    confirmPassword: '',
   }
   var firstInput: HTMLInputElement | null = null
 
@@ -41,6 +43,15 @@ function Registration(props: any) {
       alert(error)
     }
   }
+
+  const handleInputChange = (e: React.ChangeEvent<any>) => {
+    e.persist()
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   return (
     <>
       <div className="max-w-7xl mx-auto">
@@ -72,6 +83,7 @@ function Registration(props: any) {
                         <input
                           id="email"
                           type="email"
+                          onChange={handleInputChange}
                           className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
                       </div>
@@ -87,6 +99,8 @@ function Registration(props: any) {
                       <div className="mt-1 rounded-md shadow-sm">
                         <input
                           id="displayName"
+                          onChange={handleInputChange}
+                          ref={(r) => (firstInput = r)}
                           className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
                       </div>
@@ -102,25 +116,28 @@ function Registration(props: any) {
                       <div className="mt-1 rounded-md shadow-sm">
                         <input
                           id="password"
+                          type="password"
+                          onChange={handleInputChange}
                           className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
                       </div>
                     </div>
-                    {/* password */}
+                    {/* confirmPassword
                     <div className="sm:col-span-4">
                       <label
-                        htmlFor="password"
+                        htmlFor="confirmPassword"
                         className="block text-sm font-medium leading-5 text-purple-700"
                       >
                         Confirm Password
                       </label>
                       <div className="mt-1 rounded-md shadow-sm">
                         <input
-                          id="password"
+                          id="confirmPassword"
+                          type="password"
                           className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
