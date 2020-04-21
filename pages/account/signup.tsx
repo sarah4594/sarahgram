@@ -5,7 +5,7 @@ import 'firebase/auth'
 import Link from 'next/link'
 import Router from 'next/router'
 import initFirebase from '../../utils/auth/initFirebase'
-import Footer from '../../components/footer'
+import NavBar from '../../components/NavBar'
 
 initFirebase()
 
@@ -57,6 +57,7 @@ function Signup() {
 
   return (
     <>
+      <NavBar />
       <div className="max-w-7xl mx-auto">
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex-1 min-w-0">
