@@ -47,32 +47,27 @@ function Login() {
     }
   }
 
-  // const handleLoginTwitter = async (e: any) => {
-  //   e.preventDefault()
-  //   var provider = new firebase.auth.TwitterAuthProvider()
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then(function (result) {
-  //       // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-  //       // You can use these server side with your app's credentials to access the Twitter API.
-  //       var token = result.credential.accessToken
-  //       var secret = result.credential.secret
-  //       // The signed-in user info.
-  //       var user = result.user
-  //       // ...
-  //     })
-  //     .catch(function (error) {
-  //       // Handle Errors here.
-  //       var errorCode = error.code
-  //       var errorMessage = error.message
-  //       // The email of the user's account used.
-  //       var email = error.email
-  //       // The firebase.auth.AuthCredential type that was used.
-  //       var credential = error.credential
-  //       // ...
-  //     })
-  // }
+  const handleLoginTwitter = async (e: any) => {
+    e.preventDefault()
+    try {
+      const provider = new firebase.auth.TwitterAuthProvider()
+      await firebase.auth().signInWithPopup(provider)
+      Router.push('/')
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const handleLoginFacebook = async (e: any) => {
+    e.preventDefault()
+    try {
+      const provider = new firebase.auth.FacebookAuthProvider()
+      await firebase.auth().signInWithPopup(provider)
+      Router.push('/')
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   const onClick = (e: any) => {
     e.preventDefault
@@ -135,7 +130,7 @@ function Login() {
                       </SignInButton>
 
                       {/* Facebook */}
-                      <SignInButton onClick={onClick}>
+                      <SignInButton onClick={handleLoginFacebook}>
                         <svg
                           className="h-5 h-5"
                           fill="currentColor"
@@ -150,7 +145,7 @@ function Login() {
                       </SignInButton>
 
                       {/* Twitter */}
-                      <SignInButton onClick={onClick}>
+                      <SignInButton onClick={handleLoginTwitter}>
                         <svg
                           className="h-5 h-5"
                           fill="currentColor"
