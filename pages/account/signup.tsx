@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import initFirebase from '../../utils/auth/initFirebase'
 import NavBar from '../../components/NavBar'
+import Input from '../../components/Input'
 
 initFirebase()
 
@@ -76,63 +77,32 @@ function Signup() {
                   <div className="mt-8 border-t border-purple-200 pt-8"></div>
                   <div className="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                     {/* email */}
-                    <div className="sm:col-span-4">
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium leading-5 text-purple-700"
-                      >
-                        email:
-                      </label>
-                      <div className="mt-1 rounded-md shadow-sm">
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          onChange={handleInputChange}
-                          value={inputs.email}
-                          ref={(r) => (firstInput = r)}
-                          className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        />
-                      </div>
-                    </div>
+                    <Input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={inputs.email}
+                      label="Email Address"
+                      onChange={handleInputChange}
+                    />
                     {/* Display Name */}
-                    <div className="sm:col-span-4">
-                      <label
-                        htmlFor="displayName"
-                        className="block text-sm font-medium leading-5 text-purple-700"
-                      >
-                        display name:
-                      </label>
-                      <div className="mt-1 rounded-md shadow-sm">
-                        <input
-                          type="text"
-                          id="displayName"
-                          name="displayName"
-                          onChange={handleInputChange}
-                          value={inputs.displayName}
-                          className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        />
-                      </div>
-                    </div>
+                    <Input
+                      id="displayName"
+                      type="text"
+                      name="displayName"
+                      value={inputs.displayName}
+                      label="Display Name"
+                      onChange={handleInputChange}
+                    />
                     {/* password */}
-                    <div className="sm:col-span-4">
-                      <label
-                        htmlFor="password"
-                        className="block text-sm font-medium leading-5 text-purple-700"
-                      >
-                        password:
-                      </label>
-                      <div className="mt-1 rounded-md shadow-sm">
-                        <input
-                          type="password"
-                          id="password"
-                          name="password"
-                          onChange={handleInputChange}
-                          value={inputs.password}
-                          className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        />
-                      </div>
-                    </div>
+                    <Input
+                      id="password"
+                      type="password"
+                      name="password"
+                      value={inputs.password}
+                      label="Password"
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
               </div>
