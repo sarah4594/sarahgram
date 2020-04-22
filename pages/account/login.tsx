@@ -193,7 +193,12 @@ function Login() {
                       onChange={handleInputChange}
                     />
                     <div className="mt-6 flex items-center justify-between">
-                      <RememberMe />
+                      <CheckBoxes
+                        id="remember_me"
+                        classNameInput="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out"
+                        classNameLabel="ml-2 block text-sm leading-5 text-gray-900"
+                        label="Remember Me"
+                      />
 
                       <ForgotPassword />
                     </div>
