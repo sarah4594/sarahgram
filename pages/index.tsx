@@ -7,7 +7,10 @@ import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import { PrimaryButton } from '../components/Buttons/ButtonTypes'
+import {
+  PrimaryButton,
+  SecondaryButton,
+} from '../components/Buttons/ButtonTypes'
 import SignOutButton from '../components/Buttons/SignOutButton'
 import Router from 'next/router'
 import logout from '../utils/auth/logout'
@@ -27,6 +30,16 @@ const Index = (props: any) => {
     Router.push('/spaces')
   }
 
+  const goToLogin = (e: any) => {
+    e.preventDefault()
+    Router.push('/account/login')
+  }
+
+  const goToSignUp = (e: any) => {
+    e.preventDefault()
+    Router.push('/account/signUp')
+  }
+
   const handleSignOut = async (e: any) => {
     try {
       await logout()
@@ -42,20 +55,20 @@ const Index = (props: any) => {
       {!authUser ? (
         <>
           <div>not signed in.</div>
-          <div>
-            <Link href={'/account/login'}>
-              <a>[ log in ]</a>
-            </Link>
+          <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div className="grid grid-cols-1 gap-2">
+              <PrimaryButton onClick={goToLogin}>Login</PrimaryButton>
+            </div>
           </div>
-          <p>
-            <Link href={'/account/signup'}>
-              <a>[ create account ]</a>
-            </Link>
-          </p>
+          Don't Have An Account?
+          <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div className="grid grid-cols-1 gap-2">
+              <SecondaryButton onClick={goToSignUp}>Sign Up</SecondaryButton>
+            </div>
+          </div>
         </>
       ) : (
         <>
-          {/* <pre className="text-xs">{JSON.stringify(authUser, null, 2)}</pre> */}
           <div className="bg-gray-100">
             <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
               <div className="max-w-4xl mx-auto">
@@ -75,7 +88,15 @@ const Index = (props: any) => {
                           Display Name
                         </dt>
                         <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                          {AuthUserInfoContext.displayName}
+                          {authUser.displayName}
+                        </dd>
+                      </div>
+                      <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                        <dt className="text-sm leading-5 font-medium text-gray-500">
+                          Id
+                        </dt>
+                        <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                          {authUser.id}
                         </dd>
                       </div>
                       <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
@@ -83,7 +104,7 @@ const Index = (props: any) => {
                           Email address
                         </dt>
                         <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                          {AuthUserInfo.email}
+                          {authUser.email}
                         </dd>
                       </div>
                       <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
@@ -91,19 +112,21 @@ const Index = (props: any) => {
                           Email Verified
                         </dt>
                         <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                          {authUser.emailVerified}
+                          {authUser.emailVerified.toString()}
                         </dd>
                       </div>
                     </dl>
                   </div>
                 </div>
+                <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                  <div className="grid grid-cols-1 gap-2">
+                    <PrimaryButton onClick={goToAccount}>Account</PrimaryButton>
+                    <PrimaryButton onClick={goToSpaces}>Spaces</PrimaryButton>
+                    <SignOutButton onClick={handleSignOut} />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 gap-2">
-            <PrimaryButton onClick={goToAccount}>Account</PrimaryButton>
-            <PrimaryButton onClick={goToSpaces}>Spaces</PrimaryButton>
-            <SignOutButton onClick={handleSignOut} />
           </div>
         </>
       )}
