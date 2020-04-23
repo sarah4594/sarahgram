@@ -7,10 +7,34 @@ import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
 import Header from '../components/header'
 import Footer from '../components/footer'
+import { PrimaryButton } from '../components/Buttons/ButtonTypes'
+import SignOutButton from '../components/Buttons/SignOutButton'
+import Router from 'next/router'
+import logout from '../utils/auth/logout'
+import { AuthUserInfoContext } from '../utils/auth/hooks'
 
 const Index = (props: any) => {
   const { AuthUserInfo } = props
   const authUser = get(AuthUserInfo, 'AuthUser')
+
+  const goToAccount = (e: any, props: any) => {
+    e.preventDefault()
+    Router.push('/account')
+  }
+
+  const goToSpaces = (e: any, props: any) => {
+    e.preventDefault()
+    Router.push('/spaces')
+  }
+
+  const handleSignOut = async (e: any) => {
+    try {
+      await logout()
+      // Router.push('/account/login')
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <>
@@ -31,17 +55,56 @@ const Index = (props: any) => {
         </>
       ) : (
         <>
-          <pre className="text-xs">{JSON.stringify(authUser, null, 2)}</pre>
-          <p>
-            <Link href={'/account'}>
-              <a>[ account ]</a>
-            </Link>
-          </p>
-          <p>
-            <Link href={'/spaces'}>
-              <a>[ spaces ]</a>
-            </Link>
-          </p>
+          {/* <pre className="text-xs">{JSON.stringify(authUser, null, 2)}</pre> */}
+          <div className="bg-gray-100">
+            <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
+                  <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      User Information
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+                      About
+                    </p>
+                  </div>
+                  <div className="px-4 py-5 sm:p-0">
+                    <dl>
+                      <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt className="text-sm leading-5 font-medium text-gray-500">
+                          Display Name
+                        </dt>
+                        <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                          {AuthUserInfoContext.displayName}
+                        </dd>
+                      </div>
+                      <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                        <dt className="text-sm leading-5 font-medium text-gray-500">
+                          Email address
+                        </dt>
+                        <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                          {AuthUserInfo.email}
+                        </dd>
+                      </div>
+                      <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                        <dt className="text-sm leading-5 font-medium text-gray-500">
+                          Email Verified
+                        </dt>
+                        <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                          {authUser.emailVerified}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            <PrimaryButton onClick={goToAccount}>Account</PrimaryButton>
+            <PrimaryButton onClick={goToSpaces}>Spaces</PrimaryButton>
+            <SignOutButton onClick={handleSignOut} />
+          </div>
         </>
       )}
       <>
