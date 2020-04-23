@@ -2,15 +2,14 @@ import '../../css/main.css'
 import React, { useState, useEffect, ChangeEvent, Children } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import Link from 'next/link'
 import Router from 'next/router'
 import initFirebase from '../../utils/auth/initFirebase'
-import SignInButton from '../../components/SignInButton'
+import SignInButton from '../../components/Buttons/SignInButton'
 import NavBar from '../../components/NavBar'
 import Input from '../../components/Input'
 import CheckBoxes from '../../components/CheckBoxes'
 import ForgotPassword from '../../components/ForgotPassword'
-import SignUpButton from '../../components/SignUpButton'
+import SignUpButton from '../../components/Buttons/SignUpButton'
 import GoogleSignIn from '../../components/Buttons/GoogleSignIn'
 import FacebookSignIn from '../../components/Buttons/FacebookSignIn'
 import TwitterSignIn from '../../components/Buttons/TwitterSignIn'
@@ -82,6 +81,11 @@ function Login() {
     } catch (error) {
       alert(error)
     }
+  }
+
+  const handleSignUp = (e: any) => {
+    e.preventDefault()
+    Router.push('/account/signup')
   }
 
   useEffect(() => {
@@ -163,18 +167,9 @@ function Login() {
                       <ForgotPassword />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="mt-6">
-                        <span className="block w-full rounded-md shadow-sm">
-                          <SignInButton
-                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out"
-                            onClick={handleSubmit}
-                          >
-                            Sign In
-                          </SignInButton>
-                        </span>
-                      </div>
+                      <SignInButton onClick={handleSubmit} />
 
-                      <SignUpButton />
+                      <SignUpButton onClick={handleSignUp} />
                     </div>
                   </form>
                 </div>
