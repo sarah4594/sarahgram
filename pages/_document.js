@@ -1,5 +1,6 @@
 /* eslint react/no-danger: 0 */
 import React from 'react'
+import '../css/main.css'
 import PropTypes from 'prop-types'
 import { get } from 'lodash/object'
 import Document, { Html, Head, Main, NextScript } from 'next/document'

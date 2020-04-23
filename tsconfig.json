@@ -21,7 +21,8 @@
     "**/*.tsx",
     "utils/auth/initFirebase.ts",
     "utils/auth/user.ts",
-    "components/SignInButton.jsx",
-    "components/SignInButton.jsx"
+    "components/Buttons/SignInButton.tsx",
+    "components/Buttons/SignInButton.tsx",
+    "components/Input.jsx"
   ]
 }
