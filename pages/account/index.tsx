@@ -4,7 +4,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/functions'
 import { get } from 'lodash'
-import Link from 'next/link'
 import Router from 'next/router'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
@@ -14,6 +13,7 @@ import Header from '../../components/header'
 import Footer from '../../components/footer'
 import { SecondaryButton } from '../../components/Buttons/ButtonTypes'
 import SignOutButton from '../../components/Buttons/SignOutButton'
+import NavBar from '../../components/NavBar'
 
 initFirebase()
 
@@ -47,6 +47,7 @@ const Account = (props: any) => {
         <></>
       ) : (
         <>
+          <NavBar />
           <Header />
           <div className="bg-gray-100">
             <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">

@@ -2,7 +2,6 @@ import '../css/main.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
-import Link from 'next/link'
 import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
 import Header from '../components/header'
@@ -14,7 +13,7 @@ import {
 import SignOutButton from '../components/Buttons/SignOutButton'
 import Router from 'next/router'
 import logout from '../utils/auth/logout'
-import { AuthUserInfoContext } from '../utils/auth/hooks'
+import NavBar from '../components/NavBar'
 
 const Index = (props: any) => {
   const { AuthUserInfo } = props
@@ -52,6 +51,7 @@ const Index = (props: any) => {
   return (
     <>
       <Header />
+      <NavBar />
       {!authUser ? (
         <>
           <div>not signed in.</div>
