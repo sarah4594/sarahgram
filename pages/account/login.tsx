@@ -166,10 +166,12 @@ function Login() {
 
                       <ForgotPassword />
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <SignInButton onClick={handleSubmit} />
+                    <div className=" py-6 bg-white">
+                      <div className="grid grid-cols-2 gap-2">
+                        <SignInButton onClick={handleSubmit} />
 
-                      <SignUpButton onClick={handleSignUp} />
+                        <SignUpButton onClick={handleSignUp} />
+                      </div>
                     </div>
                   </form>
                 </div>
