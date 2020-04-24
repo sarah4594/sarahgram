@@ -70,7 +70,7 @@ const NavBar = (props: any) => (
                   href="/"
                   className="px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
                 >
-                  Dashboard
+                  Home
                 </a>
                 <a
                   href="/"
