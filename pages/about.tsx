@@ -1,12 +1,12 @@
 import '../css/main.css'
 import React from 'react'
-import Header from '../components/header'
+import NavBar from '../components/NavBar'
 import Footer from '../components/footer'
 
 const About = () => {
   return (
     <>
-      <Header />
+      <NavBar />
       <p>about page</p>
       <Footer />
     </>

@@ -9,7 +9,6 @@ import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import logout from '../../utils/auth/logout'
-import Header from '../../components/header'
 import Footer from '../../components/footer'
 import { SecondaryButton } from '../../components/Buttons/ButtonTypes'
 import SignOutButton from '../../components/Buttons/SignOutButton'
@@ -48,7 +47,6 @@ const Account = (props: any) => {
       ) : (
         <>
           <NavBar />
-          <Header />
           <div className="bg-gray-100">
             <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
               <div className="max-w-4xl mx-auto">

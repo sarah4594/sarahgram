@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { get } from 'lodash'
 import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
-import Header from '../components/header'
 import Footer from '../components/footer'
 import {
   PrimaryButton,
@@ -50,7 +49,6 @@ const Index = (props: any) => {
 
   return (
     <>
-      <Header />
       <NavBar />
       {!authUser ? (
         <>
