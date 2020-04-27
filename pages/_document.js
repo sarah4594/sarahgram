@@ -34,9 +34,18 @@ class CustomDocument extends Document {
 }
 
 CustomDocument.getInitialProps = async (ctx) => {
+  const { res, pathname } = ctx
   // Get the AuthUserInfo object. This is set if the server-rendered page
   // is wrapped in the `withAuthUser` higher-order component.
   const AuthUserInfo = get(ctx, 'myCustomData.AuthUserInfo', null)
+  const authUser = get(AuthUserInfo, 'AuthUser')
+
+  // if (!authUser && pathname !== '/account/login') {
+  //   res.writeHead(301, {
+  //     Location: '/account/login',
+  //   })
+  //   res.end()
+  // }
 
   const initialProps = await Document.getInitialProps(ctx)
   return { ...initialProps, AuthUserInfo }
