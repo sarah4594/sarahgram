@@ -5,25 +5,19 @@ import 'firebase/firestore'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
 import Link from 'next/link'
-import Router from 'next/router'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import usePagination from 'firestore-pagination-hook'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import AppShell from '../../components/AppShell'
 
 initFirebase()
 
 const Spaces = (props: any) => {
   const { AuthUserInfo } = props
   const authUser = get(AuthUserInfo, 'AuthUser')
-
-  useEffect(() => {
-    if (!authUser) {
-      Router.push('/')
-    }
-  })
 
   const db = firebase.firestore()
   const {
@@ -45,31 +39,23 @@ const Spaces = (props: any) => {
   )
 
   return (
-    <>
-      {!authUser ? (
-        <></>
-      ) : (
-        <>
-          <Header />
-          <label>spaces</label>{' '}
-          <Link href={'/spaces/create'}>
-            <a>[ create ]</a>
-          </Link>
-          <div>
-            {loading && <div>...</div>}
-            {items.map((item) => (
-              <pre className="text-xs">
-                {JSON.stringify(item.data() || {}, null, 2)}
-              </pre>
-            ))}
-            {hasMore && !loadingMore && (
-              <button onClick={loadMore}>[ more ]</button>
-            )}
-          </div>
-          <Footer />
-        </>
-      )}
-    </>
+    <AppShell title="Spaces">
+      <label>spaces</label>{' '}
+      <Link href={'/spaces/create'}>
+        <a>[ create ]</a>
+      </Link>
+      <div>
+        {loading && <div>...</div>}
+        {items.map((item) => (
+          <pre className="text-xs">
+            {JSON.stringify(item.data() || {}, null, 2)}
+          </pre>
+        ))}
+        {hasMore && !loadingMore && (
+          <button onClick={loadMore}>[ more ]</button>
+        )}
+      </div>
+    </AppShell>
   )
 }
 

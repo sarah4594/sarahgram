@@ -94,7 +94,6 @@ function Login() {
 
   return (
     <>
-      <NavBar />
       <div>
         <div className="min-h-screen bg-white flex">
           <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">

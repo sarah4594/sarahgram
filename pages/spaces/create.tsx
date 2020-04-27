@@ -10,6 +10,7 @@ import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import AppShell from '../../components/AppShell'
 
 initFirebase()
 
@@ -67,57 +68,41 @@ const SpacesCreate = (props: any) => {
     })
   }
 
-  useEffect(() => {
-    if (!authUser) {
-      Router.push('/')
-    } else {
-      firstInput?.focus()
-    }
-  }, []) // [] = run once
-
   return (
-    <>
-      {!authUser ? (
-        <></>
-      ) : (
-        <div>
-          <Header />
-          <div>create a new space</div>
-          <form onSubmit={handleSubmit}>
-            <p>
-              <label htmlFor="spaceId">space ID: </label>
-              <input
-                type="text"
-                id="spaceId"
-                name="spaceId"
-                onChange={handleInputChange}
-                value={inputs.spaceId}
-                ref={(r) => (firstInput = r)}
-              />
-            </p>
-            <p>
-              <label htmlFor="title">title: </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                onChange={handleInputChange}
-                value={inputs.title}
-              />
-            </p>
-            <p>
-              <button type="submit">[ create ]</button>
-            </p>
-          </form>
-          <p>
-            <Link href={'/spaces'}>
-              <a>[ back to spaces ]</a>
-            </Link>
-          </p>
-          <Footer />
-        </div>
-      )}
-    </>
+    <AppShell title="Create Spaces">
+      <div>create a new space</div>
+      <form onSubmit={handleSubmit}>
+        <p>
+          <label htmlFor="spaceId">space ID: </label>
+          <input
+            type="text"
+            id="spaceId"
+            name="spaceId"
+            onChange={handleInputChange}
+            value={inputs.spaceId}
+            ref={(r) => (firstInput = r)}
+          />
+        </p>
+        <p>
+          <label htmlFor="title">title: </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            onChange={handleInputChange}
+            value={inputs.title}
+          />
+        </p>
+        <p>
+          <button type="submit">[ create ]</button>
+        </p>
+      </form>
+      <p>
+        <Link href={'/spaces'}>
+          <a>[ back to spaces ]</a>
+        </Link>
+      </p>
+    </AppShell>
   )
 }
 
