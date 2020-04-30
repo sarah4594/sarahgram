@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-import logout from '../utils/auth/logout'
-import Router, { useRouter } from 'next/router'
+import logout from '../../utils/auth/logout'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import classNames from 'classnames'
 
@@ -129,12 +128,11 @@ const NavBar = (props: any) => {
                     } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg`}
                   >
                     <div className="py-1 rounded-md bg-white shadow-xs">
-                      <a
-                        href="/"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Your Profile
-                      </a>
+                      <Link href="/">
+                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          Your Profile
+                        </a>
+                      </Link>
                       <Link href="/account">
                         <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                           Settings
