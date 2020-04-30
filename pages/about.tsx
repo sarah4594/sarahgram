@@ -1,15 +1,14 @@
 import '../css/main.css'
 import React from 'react'
-import NavBar from '../components/NavBar'
-import Footer from '../components/footer'
+import AppShell from '../components/app/AppShell'
+import Footer from '../components/app/footer'
 
 const About = () => {
   return (
-    <>
-      <NavBar />
+    <AppShell>
       <p>about page</p>
       <Footer />
-    </>
+    </AppShell>
   )
 }
 

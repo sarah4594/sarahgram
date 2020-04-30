@@ -4,8 +4,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import Router from 'next/router'
 import initFirebase from '../../utils/auth/initFirebase'
-import NavBar from '../../components/NavBar'
-import Input from '../../components/Input'
+import Input from '../../components/elements/Input'
+import AppShell from '../../components/app/AppShell'
 
 initFirebase()
 
@@ -56,8 +56,7 @@ function Signup() {
   }, []) // [] = run once
 
   return (
-    <>
-      <NavBar />
+    <AppShell>
       <div className="max-w-7xl mx-auto">
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex-1 min-w-0">
@@ -120,7 +119,7 @@ function Signup() {
           </button>
         </span>
       </div>
-    </>
+    </AppShell>
   )
 }
 

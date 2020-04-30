@@ -8,8 +8,8 @@ import Router from 'next/router'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
-import Header from '../../components/header'
-import Footer from '../../components/footer'
+import Header from '../../components/app/header'
+import Footer from '../../components/app/footer'
 
 initFirebase()
 

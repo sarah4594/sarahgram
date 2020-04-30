@@ -9,9 +9,7 @@ import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import usePagination from 'firestore-pagination-hook'
-import Header from '../../components/header'
-import Footer from '../../components/footer'
-import AppShell from '../../components/AppShell'
+import AppShell from '../../components/app/AppShell'
 
 initFirebase()
 

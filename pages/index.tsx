@@ -4,30 +4,14 @@ import PropTypes from 'prop-types'
 import { get } from 'lodash'
 import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
-import Footer from '../components/footer'
-import {
-  PrimaryButton,
-  SecondaryButton,
-} from '../components/Buttons/ButtonTypes'
-import SignOutButton from '../components/Buttons/SignOutButton'
+import Footer from '../components/app/footer'
+import Button from '../components/elements/Button'
 import Router from 'next/router'
-import logout from '../utils/auth/logout'
-import NavBar from '../components/NavBar'
-import AppShell from '../components/AppShell'
+import AppShell from '../components/app/AppShell'
 
 const Index = (props: any) => {
   const { AuthUserInfo } = props
   const authUser = get(AuthUserInfo, 'AuthUser')
-
-  const goToAccount = (e: any, props: any) => {
-    e.preventDefault()
-    Router.push('/account')
-  }
-
-  const goToSpaces = (e: any, props: any) => {
-    e.preventDefault()
-    Router.push('/spaces')
-  }
 
   const goToLogin = (e: any) => {
     e.preventDefault()
@@ -39,15 +23,6 @@ const Index = (props: any) => {
     Router.push('/account/signUp')
   }
 
-  const handleSignOut = async (e: any) => {
-    try {
-      await logout()
-      // Router.push('/account/login')
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   return (
     <AppShell title="Home">
       {!authUser ? (
@@ -55,13 +30,13 @@ const Index = (props: any) => {
           <div>not signed in.</div>
           <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <div className="grid grid-cols-1 gap-2">
-              <PrimaryButton onClick={goToLogin}>Login</PrimaryButton>
+              <Button className="w-full" label="Login" onClick={goToLogin} />
             </div>
           </div>
           Don't Have An Account?
           <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <div className="grid grid-cols-1 gap-2">
-              <SecondaryButton onClick={goToSignUp}>Sign Up</SecondaryButton>
+              <Button className="w-full" label="Sign Up" onClick={goToSignUp} />
             </div>
           </div>
         </>

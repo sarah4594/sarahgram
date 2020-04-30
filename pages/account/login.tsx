@@ -4,15 +4,16 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import Router from 'next/router'
 import initFirebase from '../../utils/auth/initFirebase'
-import SignInButton from '../../components/Buttons/SignInButton'
-import NavBar from '../../components/NavBar'
-import Input from '../../components/Input'
-import CheckBoxes from '../../components/CheckBoxes'
+import Button from '../../components/elements/Button'
+import Input from '../../components/elements/Input'
+import CheckBoxes from '../../components/elements/CheckBoxes'
 import ForgotPassword from '../../components/ForgotPassword'
-import SignUpButton from '../../components/Buttons/SignUpButton'
-import GoogleSignIn from '../../components/Buttons/GoogleSignIn'
-import FacebookSignIn from '../../components/Buttons/FacebookSignIn'
-import TwitterSignIn from '../../components/Buttons/TwitterSignIn'
+import {
+  GoogleSignInButton,
+  FacebookSignInButton,
+  TwitterSignInButton,
+} from '../../components/account/SocialMediaButtons'
+import AppShell from '../../components/app/AppShell'
 
 initFirebase()
 
@@ -93,7 +94,7 @@ function Login() {
   }, []) // [] = run once
 
   return (
-    <>
+    <AppShell>
       <div>
         <div className="min-h-screen bg-white flex">
           <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -117,11 +118,11 @@ function Login() {
                     </p>
                     <div className="mt-1 grid grid-cols-3 gap-3">
                       {/* Google */}
-                      <GoogleSignIn onClick={handleLoginGoogle} />
+                      <GoogleSignInButton onClick={handleLoginGoogle} />
                       {/* Facebook */}
-                      <FacebookSignIn onClick={handleLoginFacebook} />
+                      <FacebookSignInButton onClick={handleLoginFacebook} />
                       {/* Twitter */}
-                      <TwitterSignIn onClick={handleLoginTwitter} />
+                      <TwitterSignInButton onClick={handleLoginTwitter} />
                     </div>
                   </div>
 
@@ -162,14 +163,31 @@ function Login() {
                         classNameLabel="ml-2 block text-sm leading-5 text-gray-900"
                         label="Remember Me"
                       />
-
-                      <ForgotPassword />
+                      <div className="text-sm leading-5">
+                        <a
+                          href="/"
+                          className="font-medium text-purple-700 hover:text-purple-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                        >
+                          Forgot your password?
+                        </a>
+                      </div>
                     </div>
                     <div className=" py-6 bg-white">
-                      <div className="grid grid-cols-2 gap-2">
-                        <SignInButton onClick={handleSubmit} />
-
-                        <SignUpButton onClick={handleSignUp} />
+                      <div className="grid grid-cols-1 gap-2">
+                        <div className="mt-6">
+                          <Button
+                            className="w-full"
+                            label="Sign In"
+                            onClick={handleSubmit}
+                          />
+                        </div>
+                        <div className="mt-6">
+                          <Button
+                            className="w-full"
+                            label="Sign Up"
+                            onClick={handleSignUp}
+                          />
+                        </div>
                       </div>
                     </div>
                   </form>
@@ -186,7 +204,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </>
+    </AppShell>
   )
 }
 
