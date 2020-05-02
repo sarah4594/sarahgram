@@ -1,118 +1,125 @@
-import '../../css/main.css'
-import React, { useState, useEffect } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/functions'
+import '../css/main.css'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { get } from 'lodash'
-import Router from 'next/router'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
-import initFirebase from '../../utils/auth/initFirebase'
-import logout from '../../utils/auth/logout'
 import Footer from '../../components/app/footer'
-import Button from '../../components/elements/Button'
+import Router from 'next/router'
 import AppShell from '../../components/app/AppShell'
+import Button from '../../components/elements/Button'
 
-initFirebase()
+const Index = (props: any) => {
+  const { AuthUserInfo } = props
+  const authUser = get(AuthUserInfo, 'AuthUser')
 
-const Account = (props: any) => {
-  const { AuthUserInfo, environment } = props
-  var authUser = get(AuthUserInfo, 'AuthUser')
-
-  const handleSignOut = async (e: any) => {
+  const goToAccount = (e: any, props: any) => {
     e.preventDefault()
-    try {
-      await logout()
-      // Router.push('/account/login')
-    } catch (e) {
-      console.error(e)
-    }
+    Router.push('/account')
   }
 
-  const handleUpdate = (e: any) => {
+  const goToSpaces = (e: any, props: any) => {
     e.preventDefault()
-    Router.push('/account/update-name')
+    Router.push('/spaces')
   }
 
-  useEffect(() => {
-    if (!authUser) {
-      Router.push('/')
-    }
-  })
+  const goToLogin = (e: any) => {
+    e.preventDefault()
+    Router.push('/account/login')
+  }
+
+  const goToSignUp = (e: any) => {
+    e.preventDefault()
+    Router.push('/account/signUp')
+  }
 
   return (
-    <>
+    <AppShell title="Home">
       {!authUser ? (
-        <></>
+        <>
+          <div>not signed in.</div>
+          <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div className="grid grid-cols-1 gap-2">
+              <Button label="Login" className="w-full" onClick={goToLogin} />
+            </div>
+          </div>
+          Don't Have An Account?
+          <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <div className="grid grid-cols-1 gap-2">
+              <Button label="Sign Up" className="w-full" onClick={goToSignUp} />
+            </div>
+          </div>
+        </>
       ) : (
-        <AppShell>
-          {/* <div className="bg-gray-100"> */}
-          <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
-                <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    User Information
-                  </h3>
-                  <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                    Personal details
-                  </p>
-                </div>
-                <div className="px-4 py-5 sm:p-0">
-                  <dl>
-                    {/* Display Name */}
-                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                      <dt className="text-sm leading-5 font-medium text-gray-500">
-                        Display Name
-                      </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {authUser.displayName}
-                      </dd>
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          className="w-full"
-                          label="Update Display Name"
-                          onClick={handleUpdate}
-                        />
-                      </div>
-                    </div>
-                    {/* Environment */}
-                    <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                      <dt className="text-sm leading-5 font-medium text-gray-500">
-                        Environment
-                      </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {`env: ${environment}`}
-                      </dd>
-                    </div>
-                    <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          className="w-full"
-                          label="Sign Out"
-                          onClick={handleSignOut}
-                        />
-                      </div>
-                    </div>
-                    <Footer />
-                  </dl>
-                </div>
+        <>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white overflow-hidden  sm:rounded-lg">
+              <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                  User Information
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+                  About
+                </p>
+              </div>
+              <div className="px-4 py-5 sm:p-0">
+                <dl>
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Display Name
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.displayName}
+                    </dd>
+                  </div>
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Id
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.id}
+                    </dd>
+                  </div>
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Email address
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.email}
+                    </dd>
+                  </div>
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Email Verified
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.emailVerified.toString()}
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </div>
           </div>
-          {/* </div> */}
-        </AppShell>
+        </>
       )}
-    </>
+      <Footer />
+    </AppShell>
   )
 }
 
-Account.getInitialProps = async function () {
-  const getEnvironment = firebase.functions().httpsCallable('getEnvironment')
-  const result = await getEnvironment({})
-  return {
-    environment: result.data.environment,
-  }
+Index.propTypes = {
+  AuthUserInfo: PropTypes.shape({
+    AuthUser: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      emailVerified: PropTypes.bool.isRequired,
+    }),
+    token: PropTypes.string,
+  }),
 }
 
-export default withAuthUser(withAuthUserInfo(Account))
+Index.defaultProps = {
+  AuthUserInfo: null,
+}
+
+export default withAuthUser(withAuthUserInfo(Index))

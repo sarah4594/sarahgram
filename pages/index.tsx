@@ -43,7 +43,7 @@ const Index = (props: any) => {
       ) : (
         <>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
+            <div className="bg-white overflow-hidden  sm:rounded-lg">
               <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
                   User Information
