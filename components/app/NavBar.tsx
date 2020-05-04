@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import logout from '../../utils/auth/logout'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
 import classNames from 'classnames'
 
@@ -41,7 +41,7 @@ const NavBar = (props: any) => {
                   alt="Workflow logo"
                 />
               </div>
-              <div className="hidden md:block">
+              {/*<div className="hidden md:block">
                 <div className="ml-10 flex items-baseline">
                   {links.map((link, index) => {
                     const isActive = link.match
@@ -62,33 +62,124 @@ const NavBar = (props: any) => {
                       </Link>
                     )
                   })}
-                  {/* <a
+                  <a
                     href="/"
                     className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
                   >
                     Team
-                  </a> */}
+                  </a>
+                </div>
+              </div>*/}
+            </div>
+            {/* Search bar */}
+            <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+              <div className="max-w-lg w-full lg:max-w-xs">
+                <label htmlFor="search" className="sr-only">
+                  Search
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    id="search"
+                    className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-gray-700 placeholder-gray-400 focus:outline-none focus:bg-white sm:text-sm transition duration-150 ease-in-out"
+                    placeholder="Search"
+                    type="search"
+                  />
                 </div>
               </div>
             </div>
+
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
+                {/* Home Icon */}
+                <Link href="/timeline">
+                  <button
+                    className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
+                    aria-label="Home"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M10 20v-6h4v6h5v-8h3l-10-9 -10 9h3v8Z"></path>
+                      <path fill="none" d="M0 0h24v24h-24Z"></path>
+                    </svg>
+                  </button>
+                </Link>
+                {/* Paper Plane Icon */}
                 <button
-                  className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
-                  aria-label="Notifications"
+                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
+                  aria-label="Paper Plane"
                 >
                   <svg
                     className="h-6 w-6"
-                    stroke="currentColor"
-                    fill="none"
+                    fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
+                    <path d="M2.01 21l20.99-9 -20.99-9 -.01 7 15 2 -15 2Z"></path>
+                    <path fill="none" d="M0 0h24v24h-24Z"></path>
+                  </svg>
+                </button>
+                {/* Discover Icon */}
+                <button
+                  className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
+                  aria-label="Discover"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 10.9c-.61 0-1.1.49-1.1 1.1 0 .61.49 1.1 1.1 1.1 .61 0 1.1-.49 1.1-1.1 0-.61-.49-1.1-1.1-1.1Zm0-8.9c-5.52 0-10 4.48-10 10 0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10Zm2.19 12.19l-8.19 3.81 3.81-8.19 8.19-3.81 -3.81 8.19Z"></path>
+                    <path fill="none" d="M0 0h24v24h-24Z"></path>
+                  </svg>
+                </button>
+                {/* Heart Icon */}
+                <button
+                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
+                  aria-label="Heart"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </button>
+                {/* Camera Icon */}
+                <button
+                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
+                  aria-label="Heart"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
                 </button>
 
@@ -108,7 +199,7 @@ const NavBar = (props: any) => {
                       data-todo-x-bind-aria-expanded="open"
                     >
                       <img
-                        className="h-8 w-8 rounded-full"
+                        className="h-6 w-6 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                       />
