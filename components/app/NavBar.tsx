@@ -3,6 +3,7 @@ import logout from '../../utils/auth/logout'
 import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
 import classNames from 'classnames'
+import Icons from '../elements/Icons'
 
 const NavBar = (props: any) => {
   const router = useRouter()
@@ -23,6 +24,15 @@ const NavBar = (props: any) => {
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const goToTimeline = (e: any) => {
+    e.preventDefault()
+    Router.push('/timeline')
+  }
+
+  const onclick = (e: any) => {
+    e.preventDefault()
   }
 
   return (
@@ -73,7 +83,7 @@ const NavBar = (props: any) => {
             </div>
             {/* Search bar */}
             <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
-              <div className="max-w-lg w-full lg:max-w-xs">
+              <div className="max-w-xlg w-full">
                 <label htmlFor="search" className="sr-only">
                   Search
                 </label>
@@ -104,84 +114,42 @@ const NavBar = (props: any) => {
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
                 {/* Home Icon */}
-                <Link href="/timeline">
-                  <button
-                    className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
-                    aria-label="Home"
-                  >
-                    <svg
-                      className="h-6 w-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M10 20v-6h4v6h5v-8h3l-10-9 -10 9h3v8Z"></path>
-                      <path fill="none" d="M0 0h24v24h-24Z"></path>
-                    </svg>
-                  </button>
-                </Link>
+                <Icons aria-label="Home" onClick={goToTimeline}>
+                  <path d="M10 20v-6h4v6h5v-8h3l-10-9 -10 9h3v8Z"></path>
+                  <path fill="none" d="M0 0h24v24h-24Z"></path>
+                </Icons>
                 {/* Paper Plane Icon */}
-                <button
-                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
-                  aria-label="Paper Plane"
-                >
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M2.01 21l20.99-9 -20.99-9 -.01 7 15 2 -15 2Z"></path>
-                    <path fill="none" d="M0 0h24v24h-24Z"></path>
-                  </svg>
-                </button>
+                <Icons aria-label="Paper Plane">
+                  <path d="M2.01 21l20.99-9 -20.99-9 -.01 7 15 2 -15 2Z"></path>
+                  <path fill="none" d="M0 0h24v24h-24Z"></path>
+                </Icons>
                 {/* Discover Icon */}
-                <button
-                  className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
-                  aria-label="Discover"
-                >
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 10.9c-.61 0-1.1.49-1.1 1.1 0 .61.49 1.1 1.1 1.1 .61 0 1.1-.49 1.1-1.1 0-.61-.49-1.1-1.1-1.1Zm0-8.9c-5.52 0-10 4.48-10 10 0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10Zm2.19 12.19l-8.19 3.81 3.81-8.19 8.19-3.81 -3.81 8.19Z"></path>
-                    <path fill="none" d="M0 0h24v24h-24Z"></path>
-                  </svg>
-                </button>
+                <Icons aria-label="Discover">
+                  <path d="M12 10.9c-.61 0-1.1.49-1.1 1.1 0 .61.49 1.1 1.1 1.1 .61 0 1.1-.49 1.1-1.1 0-.61-.49-1.1-1.1-1.1Zm0-8.9c-5.52 0-10 4.48-10 10 0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10Zm2.19 12.19l-8.19 3.81 3.81-8.19 8.19-3.81 -3.81 8.19Z"></path>
+                  <path fill="none" d="M0 0h24v24h-24Z"></path>
+                </Icons>
                 {/* Heart Icon */}
-                <button
-                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
-                  aria-label="Heart"
+                <Icons
+                  fill="none"
+                  linecap="round"
+                  linejoin="round"
+                  width="2"
+                  stroke="currentColor"
                 >
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                  </svg>
-                </button>
+                  <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </Icons>
                 {/* Camera Icon */}
-                <button
-                  className='className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700'
+                <Icons
                   aria-label="Heart"
+                  fill="none"
+                  linecap="round"
+                  linejoin="round"
+                  width="2"
+                  stroke="currentColor"
                 >
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                    <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                </button>
+                  <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                  <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </Icons>
 
                 {/* Profile dropdown */}
                 <div
