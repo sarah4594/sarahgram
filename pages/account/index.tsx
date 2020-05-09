@@ -12,6 +12,7 @@ import logout from '../../utils/auth/logout'
 import Footer from '../../components/app/footer'
 import Button from '../../components/elements/Button'
 import AppShell from '../../components/app/AppShell'
+import Editable from '../../components/Editable'
 
 initFirebase()
 
@@ -40,6 +41,7 @@ const Account = (props: any) => {
     }
   })
 
+  const [displayName, setDisplayName] = useState('')
   return (
     <>
       {!authUser ? (
@@ -65,7 +67,20 @@ const Account = (props: any) => {
                       <dt className="text-sm leading-5 font-medium text-gray-500">
                         Display Name
                       </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      <Editable
+                        text={authUser.displayName}
+                        placeholder={authUser.displayName}
+                        type="input"
+                      >
+                        <input
+                          type="text"
+                          name="display name"
+                          placeholder={authUser.displayName}
+                          value={displayName}
+                          onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                      </Editable>
+                      {/* <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                         {authUser.displayName}
                       </dd>
                       <div className="grid grid-cols-1 gap-2">
@@ -74,7 +89,7 @@ const Account = (props: any) => {
                           label="Update Display Name"
                           onClick={handleUpdate}
                         />
-                      </div>
+                      </div> */}
                     </div>
                     {/* Environment */}
                     <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
