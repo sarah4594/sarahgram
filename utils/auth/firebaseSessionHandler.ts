@@ -1,7 +1,7 @@
 // From:
 // https://github.com/zeit/next.js/blob/canary/examples/with-firebase-authentication/pages/index.js
 
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 
 export const setSession = (user: firebase.User | null) => {
   // Log in.
@@ -10,6 +10,7 @@ export const setSession = (user: firebase.User | null) => {
       return fetch('/api/login', {
         method: 'POST',
         // eslint-disable-next-line no-undef
+        // @ts-ignore
         headers: new Headers({ 'Content-Type': 'application/json' }),
         credentials: 'same-origin',
         body: JSON.stringify({ token }),
@@ -20,6 +21,7 @@ export const setSession = (user: firebase.User | null) => {
   // Log out.
   return fetch('/api/logout', {
     method: 'POST',
+    //@ts-ignore
     credentials: 'same-origin',
   })
 }
