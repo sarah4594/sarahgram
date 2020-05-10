@@ -9,7 +9,7 @@ const Editable = ({ text, type, placeholder, children, ...props }: any) => {
 
   // Event handler while pressing any key while editing
   const handleKeyDown = (event: any, type: any) => {
-    // Handle when key is pressed
+    if (event.key === 'Enter') setEditing(false)
   }
 
   /*
