@@ -12,6 +12,7 @@ export const setSession = (user: firebase.User | null) => {
         // eslint-disable-next-line no-undef
         // @ts-ignore
         headers: new Headers({ 'Content-Type': 'application/json' }),
+        // @ts-ignore
         credentials: 'same-origin',
         body: JSON.stringify({ token }),
       })
