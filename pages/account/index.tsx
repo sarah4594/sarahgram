@@ -41,7 +41,23 @@ const Account = (props: any) => {
     }
   })
 
-  const [displayName, setDisplayName] = useState('')
+  const [displayName, setDisplayName] = useState(authUser.displayName)
+
+  const updateDisplayName = async (displayName: string) => {
+    setDisplayName(displayName)
+    // Call update authUser
+    try {
+      var user = firebase.auth().currentUser
+      if (user) {
+        await user.updateProfile({
+          displayName,
+        })
+        authUser = user
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
   return (
     <>
       {!authUser ? (
@@ -67,17 +83,12 @@ const Account = (props: any) => {
                       <dt className="text-sm leading-5 font-medium text-gray-500">
                         Display Name
                       </dt>
-                      <Editable
-                        text={authUser.displayName}
-                        placeholder={authUser.displayName}
-                        type="input"
-                      >
+                      <Editable text={displayName} type="input">
                         <input
                           type="text"
-                          name="display name"
-                          placeholder={authUser.displayName}
+                          name="displayName"
                           value={displayName}
-                          onChange={(e) => setDisplayName(e.target.value)}
+                          onChange={(e) => updateDisplayName(e.target.value)}
                         />
                       </Editable>
                       {/* <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
