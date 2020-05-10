@@ -5,6 +5,7 @@ import { get, set } from 'lodash'
 import { AuthUserInfoContext, useFirebaseAuth } from '../auth/hooks'
 import { createAuthUser, createAuthUserInfo } from '../auth/user'
 import { NextPageContext } from 'next'
+import Router from 'next/router'
 
 // Gets the authenticated user from the Firebase JS SDK, when client-side,
 // or from the request object, when server-side. Add the AuthUserInfo to
@@ -44,6 +45,13 @@ export default (ComposedComponent: any) => {
         firebaseUser: get(req, 'session.decodedToken', null),
         token: get(req, 'session.token', null),
       })
+      if (res && !AuthUserInfo.AuthUser) {
+        res.writeHead(302, {
+          Location: '/account/login',
+        })
+        res.end()
+        return
+      }
     } else {
       // If client-side, get AuthUserInfo from stored data. We store it
       // in _document.js. See:
