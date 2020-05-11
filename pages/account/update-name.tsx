@@ -54,7 +54,7 @@ const AccountUpdateName = (props: any) => {
       {!authUser ? (
         <></>
       ) : (
-        <AppShell>
+        <AppShell title="Update Info">
           <div className="p-4">
             <label htmlFor="displayName">Display Name </label>
             <input

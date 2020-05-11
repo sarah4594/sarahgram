@@ -24,7 +24,7 @@ const Index = (props: any) => {
   }
 
   return (
-    <AppShell title="Home">
+    <AppShell title="Profile">
       {!authUser ? (
         <>
           <div>not signed in.</div>

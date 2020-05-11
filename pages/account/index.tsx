@@ -63,7 +63,7 @@ const Account = (props: any) => {
       {!authUser ? (
         <></>
       ) : (
-        <AppShell>
+        <AppShell title="Profile Settings">
           {/* <div className="bg-gray-100"> */}
           <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
