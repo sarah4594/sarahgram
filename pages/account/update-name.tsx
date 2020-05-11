@@ -42,10 +42,6 @@ const AccountUpdateName = (props: any) => {
       input.value = authUser?.displayName || ''
       input.focus()
     }
-    if (input) {
-      input.value = authUser?.email || ''
-      input.focus()
-    }
   })
 
   const gotoAccount = (e: any) => {
@@ -71,13 +67,7 @@ const AccountUpdateName = (props: any) => {
           </div>
           <div className="p-4">
             <label htmlFor="email">Email </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              ref={(r) => (input = r)}
-              defaultValue=""
-            />
+            <input type="email" id="email" name="email" defaultValue="" />
           </div>
           <div className="grid cols-1 pb-2">
             <Button onClick={handleDisplayNameSubmit} label="Update" />
