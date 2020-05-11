@@ -1,15 +1,15 @@
 import '../../css/main.css'
 import React, { useState, useEffect } from 'react'
-import firebase from 'firebase/app'
+import firebase, { apps } from 'firebase/app'
 import 'firebase/auth'
 import { get } from 'lodash'
-import Link from 'next/link'
 import Router from 'next/router'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
-import Header from '../../components/app/header'
 import Footer from '../../components/app/footer'
+import AppShell from '../../components/app/AppShell'
+import Button from '../../components/elements/Button'
 
 initFirebase()
 
@@ -24,6 +24,7 @@ const AccountUpdateName = (props: any) => {
       if (user) {
         await user.updateProfile({
           displayName: input?.value || '',
+          email: input?.value || '',
         })
         authUser = user
       }
@@ -41,17 +42,25 @@ const AccountUpdateName = (props: any) => {
       input.value = authUser?.displayName || ''
       input.focus()
     }
+    if (input) {
+      input.value = authUser?.email || ''
+      input.focus()
+    }
   })
+
+  const gotoAccount = (e: any) => {
+    e.preventDefault()
+    Router.push('/account')
+  }
 
   return (
     <>
       {!authUser ? (
         <></>
       ) : (
-        <>
-          <Header />
-          <p>
-            <label htmlFor="displayName">display name: </label>
+        <AppShell>
+          <div className="p-4">
+            <label htmlFor="displayName">Display Name </label>
             <input
               type="text"
               id="displayName"
@@ -59,17 +68,25 @@ const AccountUpdateName = (props: any) => {
               ref={(r) => (input = r)}
               defaultValue=""
             />
-          </p>
-          <p>
-            <button onClick={handleDisplayNameSubmit}>[ update ]</button>
-          </p>
-          <p>
-            <Link href="/account">
-              <a>[ back to account ]</a>
-            </Link>
-          </p>
+          </div>
+          <div className="p-4">
+            <label htmlFor="email">Email </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              ref={(r) => (input = r)}
+              defaultValue=""
+            />
+          </div>
+          <div className="grid cols-1 pb-2">
+            <Button onClick={handleDisplayNameSubmit} label="Update" />
+          </div>
+          <div className="grid cols-1 pb-2">
+            <Button onClick={gotoAccount} label="Back To Account" />
+          </div>
           <Footer />
-        </>
+        </AppShell>
       )}
     </>
   )

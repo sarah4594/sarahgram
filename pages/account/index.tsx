@@ -91,16 +91,6 @@ const Account = (props: any) => {
                           onChange={(e) => updateDisplayName(e.target.value)}
                         />
                       </Editable>
-                      {/* <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {authUser.displayName}
-                      </dd>
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          className="w-full"
-                          label="Update Display Name"
-                          onClick={handleUpdate}
-                        />
-                      </div> */}
                     </div>
                     {/* Environment */}
                     <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
@@ -113,6 +103,11 @@ const Account = (props: any) => {
                     </div>
                     <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
                       <div className="grid grid-cols-1 gap-2">
+                        <Button
+                          className="w-full"
+                          label="Update Info"
+                          onClick={handleUpdate}
+                        />
                         <Button
                           className="w-full"
                           label="Sign Out"
