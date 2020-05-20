@@ -67,61 +67,59 @@ const Account = (props: any) => {
           {/* <div className="bg-gray-100"> */}
           <div className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
-                <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    User Information
-                  </h3>
-                  <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                    Personal details
-                  </p>
-                </div>
-                <div className="px-4 py-5 sm:p-0">
-                  <dl>
-                    {/* Display Name */}
-                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                      <dt className="text-sm leading-5 font-medium text-gray-500">
-                        Display Name
-                      </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {authUser.displayName}
-                      </dd>
+              <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                  User Information
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+                  Personal details
+                </p>
+              </div>
+              <div className="px-4 py-5 sm:p-0">
+                <dl>
+                  {/* Display Name */}
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Display Name
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.displayName}
+                    </dd>
+                  </div>
+                  {/* Email */}
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Email
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {authUser.email}
+                    </dd>
+                  </div>
+                  {/* Environment */}
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Environment
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {`env: ${environment}`}
+                    </dd>
+                  </div>
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <div className="grid grid-cols-1 gap-2">
+                      <Button
+                        className="w-full"
+                        label="Update Info"
+                        onClick={handleUpdate}
+                      />
+                      <Button
+                        className="w-full"
+                        label="Sign Out"
+                        onClick={handleSignOut}
+                      />
                     </div>
-                    {/* Email */}
-                    <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                      <dt className="text-sm leading-5 font-medium text-gray-500">
-                        Email
-                      </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {authUser.email}
-                      </dd>
-                    </div>
-                    {/* Environment */}
-                    <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                      <dt className="text-sm leading-5 font-medium text-gray-500">
-                        Environment
-                      </dt>
-                      <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {`env: ${environment}`}
-                      </dd>
-                    </div>
-                    <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          className="w-full"
-                          label="Update Info"
-                          onClick={handleUpdate}
-                        />
-                        <Button
-                          className="w-full"
-                          label="Sign Out"
-                          onClick={handleSignOut}
-                        />
-                      </div>
-                    </div>
-                    <Footer />
-                  </dl>
-                </div>
+                  </div>
+                  <Footer />
+                </dl>
               </div>
             </div>
           </div>
