@@ -33,7 +33,7 @@ const NavBar = (props: any) => {
 
   const goToUploadPhotos = (e: any) => {
     e.preventDefault()
-    Router.push('/addPicture')
+    Router.push('/photos/add')
   }
 
   const onclick = (e: any) => {
