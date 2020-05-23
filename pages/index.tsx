@@ -8,6 +8,8 @@ import Footer from '../components/app/footer'
 import Button from '../components/elements/Button'
 import Router from 'next/router'
 import AppShell from '../components/app/AppShell'
+import UserIcons from '../components/userIcons'
+import { Posts } from '../components/timeline/Posts'
 
 const Index = (props: any) => {
   const { AuthUserInfo } = props
@@ -23,8 +25,15 @@ const Index = (props: any) => {
     Router.push('/account/signUp')
   }
 
+  const images = [
+    'https://images.unsplash.com/photo-1587169847138-7039d7e8c7f0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
+    'https://images.unsplash.com/photo-1586890723318-c5854ce2c3f3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
+    'https://images.unsplash.com/photo-1587169847138-7039d7e8c7f0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
+    'https://images.unsplash.com/photo-1586890723318-c5854ce2c3f3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
+  ]
+
   return (
-    <AppShell title="Profile">
+    <AppShell title="Timeline">
       {!authUser ? (
         <>
           <div>not signed in.</div>
@@ -42,51 +51,50 @@ const Index = (props: any) => {
         </>
       ) : (
         <>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white overflow-hidden  sm:rounded-lg">
-              <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  User Information
-                </h3>
-                <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                  About
-                </p>
+          {/* Mobile Stories */}
+          <div className="flex md:hidden">Mobile Stories</div>
+          {/* 2 Cols photos + md:stories */}
+          <div className="flex m-4">
+            <div className="flex w-full md:w-2/3 border-4 border-red-500 rounded-lg">
+              <div className="m-4 px-2 py-2">
+                {/* Timeline Posts */}
+                <div className=" m-4 grid grid-cols-1 grid-row-1">
+                  {images.map((url, index) => (
+                    <Posts url={url} key={index} />
+                  ))}
+                </div>
               </div>
-              <div className="px-4 py-5 sm:p-0">
-                <dl>
-                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                    <dt className="text-sm leading-5 font-medium text-gray-500">
-                      Display Name
-                    </dt>
-                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                      {authUser.displayName}
-                    </dd>
-                  </div>
-                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                    <dt className="text-sm leading-5 font-medium text-gray-500">
-                      Id
-                    </dt>
-                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                      {authUser.id}
-                    </dd>
-                  </div>
-                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                    <dt className="text-sm leading-5 font-medium text-gray-500">
-                      Email address
-                    </dt>
-                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                      {authUser.email}
-                    </dd>
-                  </div>
-                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                    <dt className="text-sm leading-5 font-medium text-gray-500">
-                      Email Verified
-                    </dt>
-                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                      {authUser.emailVerified.toString()}
-                    </dd>
-                  </div>
-                </dl>
+            </div>
+            {/* Stories */}
+            <div className="hidden md:flex w-1/3 border-4 border-green-500 rounded-lg">
+              <div className="m-4">
+                <UserIcons
+                  className="flex items-center w-full"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                >
+                  Sarah Carter
+                </UserIcons>
+                These are stories
+                <div className="flex flex-wrap w-full flex-col-reverse">
+                  <UserIcons
+                    className="flex items-center w-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  >
+                    Sarah Carter
+                  </UserIcons>
+                  <UserIcons
+                    className="flex items-center w-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  >
+                    Sarah Carter
+                  </UserIcons>
+                  <UserIcons
+                    className="flex items-center w-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  >
+                    Sarah Carter
+                  </UserIcons>
+                </div>
               </div>
             </div>
           </div>

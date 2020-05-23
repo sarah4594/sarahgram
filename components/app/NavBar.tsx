@@ -20,7 +20,7 @@ const NavBar = (props: any) => {
     try {
       e.preventDefault()
       await logout()
-      // Router.push('/account/login')
+      Router.push('/account/login')
     } catch (e) {
       console.error(e)
     }
@@ -28,7 +28,7 @@ const NavBar = (props: any) => {
 
   const goToTimeline = (e: any) => {
     e.preventDefault()
-    Router.push('/timeline')
+    Router.push('/')
   }
 
   const goToUploadPhotos = (e: any) => {
@@ -198,9 +198,9 @@ const NavBar = (props: any) => {
                           Your Profile
                         </a>
                       </Link>
-                      <Link href="/account/update-info">
+                      <Link href="/account/profile-settings">
                         <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                          Settings
+                          Profile Settings
                         </a>
                       </Link>
                       <a
