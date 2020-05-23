@@ -24,7 +24,6 @@ const AccountUpdateName = (props: any) => {
       if (user) {
         await user.updateProfile({
           displayName: input?.value || '',
-          email: input?.value || '',
         })
         authUser = user
       }
@@ -65,10 +64,10 @@ const AccountUpdateName = (props: any) => {
               defaultValue=""
             />
           </div>
-          <div className="p-4">
+          {/* <div className="p-4">
             <label htmlFor="email">Email </label>
             <input type="email" id="email" name="email" defaultValue="" />
-          </div>
+          </div> */}
           <div className="grid cols-1 pb-2">
             <Button onClick={handleDisplayNameSubmit} label="Update" />
           </div>
