@@ -32,7 +32,7 @@ const Account = (props: any) => {
 
   const handleUpdate = (e: any) => {
     e.preventDefault()
-    Router.push('/account/update-name')
+    Router.push('/account/update-info')
   }
 
   useEffect(() => {

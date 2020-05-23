@@ -193,12 +193,12 @@ const NavBar = (props: any) => {
                     } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg`}
                   >
                     <div className="py-1 rounded-md bg-white shadow-xs">
-                      <Link href="/">
+                      <Link href="/photos">
                         <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                           Your Profile
                         </a>
                       </Link>
-                      <Link href="/account">
+                      <Link href="/account/update-info">
                         <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                           Settings
                         </a>
@@ -215,8 +215,8 @@ const NavBar = (props: any) => {
                 </div>
               </div>
             </div>
+            {/*  
             <div className="-mr-2 flex md:hidden">
-              {/* Mobile menu button */}
               <button
                 data-todo-at-click="open = !open"
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
@@ -257,10 +257,11 @@ const NavBar = (props: any) => {
                 </svg>
               </button>
             </div>
+          */}
           </div>
         </div>
       </div>
-
+      {/* 
       <div
         data-todo-x-description="Mobile menu, toggle classes based on menu state."
         data-todo-x-state-on="Open"
@@ -333,6 +334,7 @@ const NavBar = (props: any) => {
           </div>
         </div>
       </div>
+    */}
     </nav>
   )
 }
