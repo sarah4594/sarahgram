@@ -27,9 +27,9 @@ const Icons = ({
       className="h-6 w-6"
       fill={fill}
       viewBox="0 0 24 24"
-      stroke-linecap={linecap}
-      stroke-linejoin={linejoin}
-      stroke-width={width}
+      strokeLinecap={linecap}
+      strokeLinejoin={linejoin}
+      strokeWidth={width}
       stroke={stroke}
     >
       {children}
