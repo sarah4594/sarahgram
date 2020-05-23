@@ -15,6 +15,8 @@ initFirebase()
 
 type Inputs = {
   photoUrl: string
+  publicId: string
+  version: string
   caption: string
   id?: string
   status: string
@@ -28,6 +30,8 @@ const Add = (props: any) => {
 
   const initial: Inputs = {
     photoUrl: '',
+    publicId: '',
+    version: '',
     caption: '',
     id: undefined,
     status: 'pending',
@@ -43,6 +47,8 @@ const Add = (props: any) => {
       const ref = db.collection('photos').doc(inputs.id)
       await ref.set({
         photoUrl: inputs.photoUrl,
+        publicId: inputs.publicId,
+        version: inputs.version,
         caption: inputs.caption,
         uid: authUser.id,
         status: 'posted',
@@ -72,10 +78,14 @@ const Add = (props: any) => {
     try {
       inputs.status = 'uploaded'
       inputs.photoUrl = file.secure_url
+      inputs.publicId = file.public_id
+      inputs.version = file.version
       inputs.timestamp = Date.now()
       const db = firebase.firestore()
       const ref = await db.collection('photos').add({
         photoUrl: inputs.photoUrl,
+        publicId: inputs.publicId,
+        version: inputs.version,
         caption: inputs.caption,
         status: inputs.status,
         timestamp: inputs.timestamp,

@@ -5,11 +5,19 @@ import 'firebase/firestore'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
 import Link from 'next/link'
+import {
+  Image,
+  Video,
+  Transformation,
+  CloudinaryContext,
+  // @ts-ignore
+} from 'cloudinary-react'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import usePagination from 'firestore-pagination-hook'
 import AppShell from '../../components/app/AppShell'
+import config from '../../config.json'
 
 initFirebase()
 
@@ -30,7 +38,8 @@ const Index = (props: any) => {
     db
       .collection('photos')
       .where('uid', '==', authUser?.id ?? '')
-      .orderBy('spaceId', 'asc'),
+      .where('status', '==', 'posted')
+      .orderBy('timestamp', 'desc'),
     {
       limit: 10,
     },
@@ -39,16 +48,32 @@ const Index = (props: any) => {
   return (
     <AppShell title="Photos">
       <label>photos</label>{' '}
-      <Link href={'/photos/create'}>
-        <a>[ create ]</a>
+      <Link href={'/photos/add'}>
+        <a>[ add photo ]</a>
       </Link>
-      <div>
+      <div className="flex flex-wrap">
         {loading && <div>...</div>}
-        {items.map((item) => (
-          <pre className="text-xs">
-            {JSON.stringify(item.data() || {}, null, 2)}
-          </pre>
-        ))}
+        {items.map((item) => {
+          const photo = item.data()
+          return (
+            <div key={item.ref.id} className="flex flex-col align-center">
+              <Image
+                cloudName={config.cloudinary.cloudName}
+                version={photo.version}
+                publicId={photo.publicId}
+                className="h-64 w-64 self-center"
+              >
+                <Transformation
+                  width="256"
+                  height="256"
+                  gravity="face"
+                  crop="thumb"
+                />
+              </Image>
+              <div>{photo.caption}</div>
+            </div>
+          )
+        })}
         {hasMore && !loadingMore && (
           <button onClick={loadMore}>[ more ]</button>
         )}
