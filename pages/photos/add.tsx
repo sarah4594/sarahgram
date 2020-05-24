@@ -1,4 +1,3 @@
-import '../../css/main.css'
 import React, { useState, useEffect, ChangeEvent } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -10,6 +9,12 @@ import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
 import AppShell from '../../components/app/AppShell'
+import config from '../../config.json'
+import {
+  cloudinary,
+  // @ts-ignore
+} from 'cloudinary-react'
+import UploadWidget from '../../components/cloudinary/UploadWidget'
 
 initFirebase()
 
@@ -62,24 +67,12 @@ const Add = (props: any) => {
 
   const [image, setImage] = useState()
 
-  const uploadFile = async (e: any) => {
-    console.log('Uplaoding file...')
-    const files = e.target.files
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'SarahGram')
-
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/snickersarah/image/upload',
-      { method: 'POST', body: data },
-    )
-    const file = await res.json()
-    console.log(file)
+  const uploadFile = async (info: any) => {
     try {
       inputs.status = 'uploaded'
-      inputs.photoUrl = file.secure_url
-      inputs.publicId = file.public_id
-      inputs.version = file.version
+      inputs.photoUrl = info.secure_url
+      inputs.publicId = info.public_id
+      inputs.version = info.version
       inputs.timestamp = Date.now()
       const db = firebase.firestore()
       const ref = await db.collection('photos').add({
@@ -106,19 +99,19 @@ const Add = (props: any) => {
   }
   return (
     <AppShell caption="Upload Photo">
-      This is where you'll be able to upload picures
-      <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-        <label htmlFor="file">
-          <input
-            type="file"
-            id="file"
-            name="file"
-            placeholder="Upload an Image"
-            required
-            onChange={uploadFile}
-          />
-        </label>
-      </div>
+      <UploadWidget
+        id="widget-container"
+        cloudName={config.cloudinary.cloudName}
+        uploadPreset={config.cloudinary.uploadPreset}
+        cropping={true}
+        //@ts-ignore
+        onUpload={async (result: any) => {
+          console.log(result)
+          if (result.event === 'success') {
+            await uploadFile(result.info)
+          }
+        }}
+      />
       {inputs.photoUrl && (
         <div>
           <img src={inputs.photoUrl} className="h-64" />
