@@ -11,7 +11,7 @@ import AppShell from '../components/app/AppShell'
 import UserIcons from '../components/userIcons'
 import { Posts } from '../components/timeline/Posts'
 
-const Index = (props: any) => {
+const Timeline = (props: any) => {
   const { AuthUserInfo } = props
   const authUser = get(AuthUserInfo, 'AuthUser')
 
@@ -105,7 +105,7 @@ const Index = (props: any) => {
   )
 }
 
-Index.propTypes = {
+Timeline.propTypes = {
   AuthUserInfo: PropTypes.shape({
     AuthUser: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -116,8 +116,8 @@ Index.propTypes = {
   }),
 }
 
-Index.defaultProps = {
+Timeline.defaultProps = {
   AuthUserInfo: null,
 }
 
-export default withAuthUser(withAuthUserInfo(Index))
+export default withAuthUser(withAuthUserInfo(Timeline))
