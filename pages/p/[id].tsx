@@ -1,21 +1,15 @@
 import '../../css/main.css'
-import React, { useEffect, version } from 'react'
+import React from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import PropTypes from 'prop-types'
-import { get } from 'lodash'
-import Link from 'next/link'
 import {
   Image,
-  Video,
-  Transformation,
-  CloudinaryContext,
   // @ts-ignore
 } from 'cloudinary-react'
 import withAuthUser from '../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../../utils/pageWrappers/withAuthUserInfo'
 import initFirebase from '../../utils/auth/initFirebase'
-import usePagination from 'firestore-pagination-hook'
 import AppShell from '../../components/app/AppShell'
 import config from '../../config.json'
 import Router, { useRouter } from 'next/router'
@@ -24,11 +18,8 @@ import { useDocument } from 'react-firebase-hooks/firestore'
 initFirebase()
 
 const Index = (props: any) => {
-  const { AuthUserInfo } = props
   const router = useRouter()
-  const { id } = router.query
-
-  const authUser = get(AuthUserInfo, 'AuthUser')
+  const { id, username } = router.query
 
   const db = firebase.firestore()
   //@ts-ignore
@@ -36,8 +27,14 @@ const Index = (props: any) => {
   const [snapshot, loading, error] = useDocument(ref)
   const photo = snapshot?.data()
 
+  const handleOnClick = (e: any) => {
+    e.preventDefault()
+    Router.push(`/${username}`)
+  }
+
   return (
     <AppShell title="Photo">
+      <button onClick={handleOnClick}>Back</button>
       <div className="flex flex-wrap">
         {loading && <div>...</div>}
         {photo && (

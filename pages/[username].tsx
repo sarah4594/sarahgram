@@ -1,92 +1,34 @@
-import React, { useEffect, version } from 'react'
+import React from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import PropTypes from 'prop-types'
-import { get } from 'lodash'
-import Link from 'next/link'
-import {
-  Image,
-  Video,
-  Transformation,
-  CloudinaryContext,
-  // @ts-ignore
-} from 'cloudinary-react'
+import initFirebase from '../utils/auth/initFirebase'
+import { useDocumentOnce } from 'react-firebase-hooks/firestore'
+import { useRouter } from 'next/router'
+import AppShell from '../components/app/AppShell'
 import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
-import initFirebase from '../utils/auth/initFirebase'
-import usePagination from 'firestore-pagination-hook'
-import AppShell from '../components/app/AppShell'
-import config from '../config.json'
-import Router, { useRouter } from 'next/router'
-import { useDocument } from 'react-firebase-hooks/firestore'
+import PhotoList from '../components/photoList'
+import UserIcons from '../components/userIcons'
+import { getUserByUserId } from '../utils/functions/userFunctions'
 
 initFirebase()
 
-const Index = (props: any) => {
-  const { AuthUserInfo } = props
-  const router = useRouter()
-  const { username } = router.query
-  const authUser = get(AuthUserInfo, 'AuthUser')
-
-  const db = firebase.firestore()
-
-  // //@ts-ignore
-  // const userRef = db.collection('users').doc(username)
-  // const [snapshot, loadingUser, errorUser] = useDocument(userRef)
-
-  // const user = snapshot?.data()
-  const {
-    loading,
-    loadingError,
-    loadingMore,
-    loadingMoreError,
-    hasMore,
-    items,
-    loadMore,
-  } = usePagination(
-    db
-      .collection('photos')
-      .where('uid', '==', authUser?.id ?? '')
-      .where('status', '==', 'posted')
-      .orderBy('timestamp', 'desc'),
-    {
-      limit: 10,
-    },
-  )
-
+const Index = () => {
+  const { uid, username, loading, error } = getUserByUserId()
   return (
     <AppShell title={`Photos for ${username}`}>
-      <div className="flex flex-wrap">
+      <UserIcons
+        className="flex items-center w-full"
+        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      >
+        Sarah Carter
+      </UserIcons>
+      <div className="border border-black">
+        this is where all the picutres should go...
         {loading && <div>...</div>}
-        {items?.map((item) => {
-          const photo = item.data()
-          return (
-            <Link href={`/p/${item.ref.id}`}>
-              <a>
-                <div key={item.ref.id} className="flex flex-col align-center">
-                  <Image
-                    cloudName={config.cloudinary.cloudName}
-                    version={photo.version}
-                    publicId={photo.publicId}
-                    className="h-64 w-64 self-center"
-                    // onClick={handleOnClick(photo.version, photo.publicId)}
-                  >
-                    <Transformation
-                      width="256"
-                      height="256"
-                      gravity="face"
-                      crop="thumb"
-                    />
-                  </Image>
-                  <div>{photo.caption}</div>
-                </div>
-              </a>
-            </Link>
-          )
-        })}
-        {hasMore && !loadingMore && (
-          <button onClick={loadMore}>[ more ]</button>
-        )}
+        {!loading && !error && !uid && <div>USer Not Found</div>}
+        {uid && <PhotoList uid={uid} />}
       </div>
     </AppShell>
   )
