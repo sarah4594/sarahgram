@@ -45,9 +45,23 @@ export default (ComposedComponent: any) => {
         firebaseUser: get(req, 'session.decodedToken', null),
         token: get(req, 'session.token', null),
       })
+
       if (res && !AuthUserInfo.AuthUser) {
         res.writeHead(302, {
           Location: '/account/login',
+        })
+        res.end()
+        return
+      }
+
+      // get user from session
+      const user = get(req, 'session.user', null)
+      console.log(req?.url)
+      // if no user and we are not on profiles-settings
+      // redirect user to profile-settings to create profile and set username
+      if (res && !user && req?.url !== '/account/update-info') {
+        res.writeHead(302, {
+          Location: '/account/update-info',
         })
         res.end()
         return
@@ -61,6 +75,12 @@ export default (ComposedComponent: any) => {
         const document = window?.document
         const textContent = document?.getElementById('__MY_AUTH_USER_INFO')
           ?.textContent
+
+        console.log('client-side auth check', Router.pathname, textContent)
+        if (!textContent && Router.pathname !== '/account/update-info') {
+          console.log('redirect to update-info')
+          Router.replace('/account/update-info')
+        }
         if (textContent) {
           jsonData = JSON.parse(textContent)
         }
