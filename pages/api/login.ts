@@ -1,6 +1,11 @@
 import commonMiddleware from '../../utils/middleware/commonMiddleware'
 import { verifyIdToken } from '../../utils/auth/firebaseAdmin'
 import { NextApiRequest, NextApiResponse } from 'next'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import initFirebase from '../../utils/auth/initFirebase'
+
+initFirebase()
 
 // req type: CookieSession?
 const handler = async (req: any, res: NextApiResponse) => {
@@ -24,9 +29,23 @@ const handler = async (req: any, res: NextApiResponse) => {
   // requests in a serverless context.
   try {
     const decodedToken = await verifyIdToken(token)
+    let user = null
     req.session.decodedToken = decodedToken
     req.session.token = token
-    return res.status(200).json({ status: true, decodedToken })
+
+    const db = firebase.firestore()
+    //@ts-ignore
+    const snapshot: any = await db
+      .collection('users')
+      .where('uid', '==', decodedToken.uid)
+      .get()
+
+    if (snapshot?.docs && snapshot.docs[0]) {
+      user = snapshot.docs[0].data()
+      req.session.user = user
+    }
+
+    return res.status(200).json({ status: true, decodedToken, user })
   } catch (error) {
     return res.status(500).json({ error })
   }
