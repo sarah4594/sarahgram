@@ -12,7 +12,9 @@ import logout from '../../utils/auth/logout'
 import Footer from '../../components/app/footer'
 import Button from '../../components/elements/Button'
 import AppShell from '../../components/app/AppShell'
-import Editable from '../../components/Editable'
+import { useAuthUserInfo } from '../../utils/auth/hooks'
+import { useCollectionOnce } from 'react-firebase-hooks/firestore'
+import 'firebase/firestore'
 
 initFirebase()
 
@@ -41,23 +43,22 @@ const Account = (props: any) => {
     }
   })
 
-  const [displayName, setDisplayName] = useState(authUser.displayName)
+  const { AuthUser } = useAuthUserInfo()
+  const db = firebase.firestore()
+  const uid = AuthUser?.id ?? ''
 
-  const updateDisplayName = async (displayName: string) => {
-    setDisplayName(displayName)
-    // Call update authUser
-    try {
-      var user = firebase.auth().currentUser
-      if (user) {
-        await user.updateProfile({
-          displayName,
-        })
-        authUser = user
-      }
-    } catch (error) {
-      alert(error)
+  const [snapshot, loading, error] = useCollectionOnce(
+    db.collection('users').where('uid', '==', uid),
+  )
+  let user = null
+  if (!loading && !error) {
+    user = snapshot?.docs[0].data()
+    if (user) {
+      user.id = snapshot?.docs[0].id
     }
   }
+  console.log(user)
+
   return (
     <>
       {!authUser ? (
@@ -83,7 +84,16 @@ const Account = (props: any) => {
                       Display Name
                     </dt>
                     <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                      {authUser.displayName}
+                      {user?.displayName}
+                    </dd>
+                  </div>
+                  {/* Username */}
+                  <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                    <dt className="text-sm leading-5 font-medium text-gray-500">
+                      Username
+                    </dt>
+                    <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                      {user?.id}
                     </dd>
                   </div>
                   {/* Email */}
