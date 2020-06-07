@@ -1,5 +1,5 @@
 import '../../css/main.css'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/functions'
@@ -13,8 +13,8 @@ import Footer from '../../components/app/footer'
 import Button from '../../components/elements/Button'
 import AppShell from '../../components/app/AppShell'
 import { useAuthUserInfo } from '../../utils/auth/hooks'
-import { useCollectionOnce } from 'react-firebase-hooks/firestore'
 import 'firebase/firestore'
+import { getUserByAuthUser } from '../../utils/functions/userFunctions'
 
 initFirebase()
 
@@ -44,20 +44,7 @@ const Account = (props: any) => {
   })
 
   const { AuthUser } = useAuthUserInfo()
-  const db = firebase.firestore()
-  const uid = AuthUser?.id ?? ''
-
-  const [snapshot, loading, error] = useCollectionOnce(
-    db.collection('users').where('uid', '==', uid),
-  )
-  let user = null
-  if (!loading && !error) {
-    user = snapshot?.docs[0].data()
-    if (user) {
-      user.id = snapshot?.docs[0].id
-    }
-  }
-  console.log(user)
+  const user = getUserByAuthUser({ AuthUser })
 
   return (
     <>
