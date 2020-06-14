@@ -10,6 +10,8 @@ import Router from 'next/router'
 import AppShell from '../components/app/AppShell'
 import UserIcons from '../components/userIcons'
 import { Posts } from '../components/timeline/Posts'
+import { useAuthUserInfo } from '../utils/auth/hooks'
+import { getUserByAuthUser } from '../utils/functions/userFunctions'
 
 const Timeline = (props: any) => {
   const { AuthUserInfo } = props
@@ -24,6 +26,9 @@ const Timeline = (props: any) => {
     e.preventDefault()
     Router.push('/account/signUp')
   }
+
+  const { AuthUser } = useAuthUserInfo()
+  const user = getUserByAuthUser({ AuthUser })
 
   const images = [
     'https://images.unsplash.com/photo-1587169847138-7039d7e8c7f0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
@@ -60,7 +65,7 @@ const Timeline = (props: any) => {
                 {/* Timeline Posts */}
                 <div className=" m-4 grid grid-cols-1 grid-row-1">
                   {images.map((url, index) => (
-                    <Posts url={url} key={index} />
+                    <Posts url={url} key={index} username={user?.id} />
                   ))}
                 </div>
               </div>
@@ -72,7 +77,7 @@ const Timeline = (props: any) => {
                   className="flex items-center w-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 >
-                  Sarah Carter
+                  {user?.id}
                 </UserIcons>
                 These are stories
                 <div className="flex flex-wrap w-full flex-col-reverse">
@@ -80,19 +85,19 @@ const Timeline = (props: any) => {
                     className="flex items-center w-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   >
-                    Sarah Carter
+                    {user?.id}
                   </UserIcons>
                   <UserIcons
                     className="flex items-center w-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   >
-                    Sarah Carter
+                    {user?.id}
                   </UserIcons>
                   <UserIcons
                     className="flex items-center w-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   >
-                    Sarah Carter
+                    {user?.id}
                   </UserIcons>
                 </div>
               </div>
