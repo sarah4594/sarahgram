@@ -2,6 +2,13 @@ import '../css/main.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
+import {
+  Image,
+  Video,
+  Transformation,
+  CloudinaryContext,
+  // @ts-ignore
+} from 'cloudinary-react'
 import withAuthUser from '../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo'
 import Footer from '../components/app/footer'
@@ -11,7 +18,12 @@ import AppShell from '../components/app/AppShell'
 import UserIcons from '../components/userIcons'
 import { Posts } from '../components/timeline/Posts'
 import { useAuthUserInfo } from '../utils/auth/hooks'
-import { getUserByAuthUser } from '../utils/functions/userFunctions'
+import {
+  getUserByAuthUser,
+  getPhotoByAuthUser,
+} from '../utils/functions/userFunctions'
+import Link from 'next/link'
+import config from '../config.json'
 
 const Timeline = (props: any) => {
   const { AuthUserInfo } = props
@@ -29,13 +41,15 @@ const Timeline = (props: any) => {
 
   const { AuthUser } = useAuthUserInfo()
   const user = getUserByAuthUser({ AuthUser })
-
-  const images = [
-    'https://images.unsplash.com/photo-1587169847138-7039d7e8c7f0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
-    'https://images.unsplash.com/photo-1586890723318-c5854ce2c3f3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
-    'https://images.unsplash.com/photo-1587169847138-7039d7e8c7f0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
-    'https://images.unsplash.com/photo-1586890723318-c5854ce2c3f3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=614&ixlib=rb-1.2.1&q=80&w=614',
-  ]
+  const {
+    loading,
+    loadingError,
+    loadingMore,
+    loadingMoreError,
+    hasMore,
+    items,
+    loadMore,
+  } = getPhotoByAuthUser({ AuthUserInfo })
 
   return (
     <AppShell title="Timeline">
@@ -64,9 +78,34 @@ const Timeline = (props: any) => {
               <div className="m-4 px-2 py-2">
                 {/* Timeline Posts */}
                 <div className=" m-4 grid grid-cols-1 grid-row-1">
-                  {images.map((url, index) => (
-                    <Posts url={url} key={index} username={user?.id} />
-                  ))}
+                  <div className="flex flex-col">
+                    {loading && <div>...</div>}
+                    {items.map((item) => {
+                      const photo = item.data()
+                      return (
+                        <div
+                          key={item.ref.id}
+                          className="flex flex-col align-center"
+                        >
+                          <Posts url={item.url} username={user?.id} />
+                          <Image
+                            cloudName={config.cloudinary.cloudName}
+                            version={photo.version}
+                            publicId={photo.publicId}
+                            className="h-64 w-64 self-center"
+                          >
+                            <Transformation
+                              width="256"
+                              height="256"
+                              gravity="face"
+                              crop="thumb"
+                            />
+                          </Image>
+                          <div>{photo.caption}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

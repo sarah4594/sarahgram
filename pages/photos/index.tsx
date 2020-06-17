@@ -18,14 +18,13 @@ import initFirebase from '../../utils/auth/initFirebase'
 import usePagination from 'firestore-pagination-hook'
 import AppShell from '../../components/app/AppShell'
 import config from '../../config.json'
+import { getPhotoByAuthUser } from '../../utils/functions/userFunctions'
+import Button from '../../components/elements/Button'
 
 initFirebase()
 
 const Index = (props: any) => {
   const { AuthUserInfo } = props
-  const authUser = get(AuthUserInfo, 'AuthUser')
-
-  const db = firebase.firestore()
   const {
     loading,
     loadingError,
@@ -34,23 +33,11 @@ const Index = (props: any) => {
     hasMore,
     items,
     loadMore,
-  } = usePagination(
-    db
-      .collection('photos')
-      .where('uid', '==', authUser?.id ?? '')
-      .where('status', '==', 'posted')
-      .orderBy('timestamp', 'desc'),
-    {
-      limit: 10,
-    },
-  )
+  } = getPhotoByAuthUser({ AuthUserInfo })
 
   return (
     <AppShell title="Photos">
-      <label>photos</label>{' '}
-      <Link href={'/photos/add'}>
-        <a>[ add photo ]</a>
-      </Link>
+      <label>photos</label>
       <div className="flex flex-wrap">
         {loading && <div>...</div>}
         {items.map((item) => {
@@ -75,8 +62,13 @@ const Index = (props: any) => {
           )
         })}
         {hasMore && !loadingMore && (
-          <button onClick={loadMore}>[ more ]</button>
+          <Button label="More..." onClick={loadMore} />
         )}
+        <div>
+          <Link href={'/photos/add'}>
+            <Button label="Add Photo" />
+          </Link>
+        </div>
       </div>
     </AppShell>
   )
