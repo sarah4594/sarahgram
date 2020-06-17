@@ -10,16 +10,18 @@ import AppShell from '../../components/app/AppShell'
 initFirebase()
 
 type Inputs = {
+  displayName: string
+  username: string
   email: string
   password: string
-  displayName: string
 }
 
 function Signup() {
   const initialValues: Inputs = {
+    displayName: '',
+    username: '',
     email: '',
     password: '',
-    displayName: '',
   }
   var firstInput: HTMLInputElement | null = null
 
@@ -73,6 +75,24 @@ function Signup() {
               <div>
                 <div>
                   <div className="mt-8 border-t border-purple-200 pt-8">
+                    {/* Display Name */}
+                    <Input
+                      id="displayName"
+                      type="text"
+                      name="displayName"
+                      value={inputs.displayName}
+                      label="Name"
+                      onChange={handleInputChange}
+                    />
+                    {/* Username Name */}
+                    <Input
+                      id="username"
+                      type="text"
+                      name="username"
+                      value={inputs.username}
+                      label="Username"
+                      onChange={handleInputChange}
+                    />
                     {/* email */}
                     <Input
                       id="email"
@@ -80,15 +100,6 @@ function Signup() {
                       name="email"
                       value={inputs.email}
                       label="Email Address"
-                      onChange={handleInputChange}
-                    />
-                    {/* Display Name */}
-                    <Input
-                      id="displayName"
-                      type="text"
-                      name="displayName"
-                      value={inputs.displayName}
-                      label="Display Name"
                       onChange={handleInputChange}
                     />
                     {/* password */}
