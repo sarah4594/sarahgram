@@ -15,6 +15,7 @@ import {
   // @ts-ignore
 } from 'cloudinary-react'
 import UploadWidget from '../../components/cloudinary/UploadWidget'
+import Button from '../../components/elements/Button'
 
 initFirebase()
 
@@ -133,7 +134,7 @@ const Add = (props: any) => {
       </div>
       <p>
         <Link href={'/photos'}>
-          <a>[ back to photos ]</a>
+          <Button label="Back to Photos" />
         </Link>
       </p>
     </AppShell>
