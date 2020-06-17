@@ -3,6 +3,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { useDocumentOnce } from 'react-firebase-hooks/firestore'
 import { useRouter } from 'next/router'
+import usePagination from 'firestore-pagination-hook'
+import { get } from 'lodash'
 
 const getUserByUserId = () => {
   const router = useRouter()
@@ -54,4 +56,41 @@ const getUserByAuthUser = ({ AuthUser }: any) => {
   return user
 }
 
-export { getUserByUserId, getPostsByUserId, getUserByAuthUser }
+const getPhotoByAuthUser = ({ AuthUserInfo }: any) => {
+  const authUser = get(AuthUserInfo, 'AuthUser')
+  const db = firebase.firestore()
+  const {
+    loading,
+    loadingError,
+    loadingMore,
+    loadingMoreError,
+    hasMore,
+    items,
+    loadMore,
+  } = usePagination(
+    db
+      .collection('photos')
+      .where('uid', '==', authUser?.id ?? '')
+      .where('status', '==', 'posted')
+      .orderBy('timestamp', 'desc'),
+    {
+      limit: 10,
+    },
+  )
+  return {
+    loading,
+    loadingError,
+    loadingMore,
+    loadingMoreError,
+    hasMore,
+    items,
+    loadMore,
+  }
+}
+
+export {
+  getUserByUserId,
+  getPostsByUserId,
+  getUserByAuthUser,
+  getPhotoByAuthUser,
+}
